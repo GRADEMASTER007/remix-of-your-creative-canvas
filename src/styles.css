@@ -208,8 +208,8 @@
   100% { opacity: 1; }
 }
 @keyframes flicker {
-  0%, 100% { opacity: 0.35; }
-  50% { opacity: 0.6; }
+  0%, 100% { opacity: 0.12; }
+  50% { opacity: 0.22; }
 }
 @keyframes riseIn {
   from { opacity: 0; transform: translateY(28px); }
