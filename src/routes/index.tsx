@@ -1,24 +1,59 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { VideoHero } from "@/components/VideoHero";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Living Culture Health — Africa's Heritage Marketplace" },
+      {
+        name: "description",
+        content:
+          "Buy African foods, baking, traditional medicinals and art direct from heritage makers. Sellers get their own store with two simple plans.",
+      },
+      {
+        property: "og:title",
+        content: "Living Culture Health — Africa's Heritage Marketplace",
+      },
+      {
+        property: "og:description",
+        content:
+          "Buy African foods, baking, traditional medicinals and art direct from heritage makers.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
+const categories = [
+  { name: "Foods", copy: "Grains, spices, sauces and staples from every region." },
+  { name: "Baking", copy: "Heritage breads, flours and sweet traditions." },
+  { name: "Medicinals", copy: "Roots, barks and herbal remedies, traditionally prepared." },
+  { name: "Art", copy: "Carvings, canvases, beadwork and textiles." },
+];
+
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <main className="min-h-screen bg-background font-sans">
+      <VideoHero />
+
+      <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8">
+        <h2 className="font-display text-5xl uppercase tracking-tight text-foreground sm:text-6xl">
+          Four worlds, one market
+        </h2>
+        <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {categories.map((c) => (
+            <article
+              key={c.name}
+              className="group rounded-xl border border-border bg-card p-6 transition-transform hover:-translate-y-1"
+            >
+              <span className="font-display text-3xl uppercase text-primary">{c.name}</span>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{c.copy}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+    </main>
   );
 }
