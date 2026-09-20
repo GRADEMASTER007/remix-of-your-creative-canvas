@@ -142,3 +142,94 @@
     color: var(--color-foreground);
   }
 }
+
+/* ===== Living Culture Health — African heritage theme ===== */
+:root {
+  --radius: 0.5rem;
+  --background: oklch(0.985 0.012 80);
+  --foreground: oklch(0.22 0.035 45);
+  --card: oklch(0.995 0.008 85);
+  --card-foreground: oklch(0.22 0.035 45);
+  --popover: oklch(0.995 0.008 85);
+  --popover-foreground: oklch(0.22 0.035 45);
+  --primary: oklch(0.55 0.18 38);
+  --primary-foreground: oklch(0.98 0.015 85);
+  --secondary: oklch(0.93 0.03 80);
+  --secondary-foreground: oklch(0.28 0.05 45);
+  --muted: oklch(0.94 0.02 80);
+  --muted-foreground: oklch(0.48 0.03 60);
+  --accent: oklch(0.72 0.16 75);
+  --accent-foreground: oklch(0.22 0.05 45);
+  --border: oklch(0.88 0.025 75);
+  --input: oklch(0.88 0.025 75);
+  --ring: oklch(0.55 0.18 38);
+  --ember: oklch(0.62 0.21 30);
+  --indigo-deep: oklch(0.33 0.09 260);
+  --char: oklch(0.17 0.02 50);
+  --gradient-ember: linear-gradient(115deg, oklch(0.55 0.18 38), oklch(0.72 0.16 75));
+  --shadow-warm: 0 20px 50px -20px oklch(0.4 0.14 40 / 0.45);
+}
+
+.dark {
+  --background: oklch(0.17 0.02 50);
+  --foreground: oklch(0.96 0.015 85);
+  --card: oklch(0.22 0.025 50);
+  --card-foreground: oklch(0.96 0.015 85);
+  --popover: oklch(0.22 0.025 50);
+  --popover-foreground: oklch(0.96 0.015 85);
+  --primary: oklch(0.65 0.19 40);
+  --primary-foreground: oklch(0.15 0.02 50);
+  --secondary: oklch(0.27 0.03 55);
+  --secondary-foreground: oklch(0.96 0.015 85);
+  --muted: oklch(0.27 0.03 55);
+  --muted-foreground: oklch(0.72 0.03 70);
+  --accent: oklch(0.75 0.16 75);
+  --accent-foreground: oklch(0.17 0.02 50);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.65 0.19 40);
+}
+
+@theme inline {
+  --color-ember: var(--ember);
+  --color-indigo-deep: var(--indigo-deep);
+  --color-char: var(--char);
+  --font-display: "Bebas Neue", "Arial Narrow", sans-serif;
+  --font-sans: "Barlow", ui-sans-serif, system-ui, sans-serif;
+}
+
+@keyframes kenburns {
+  0% { transform: scale(1.08) translate3d(0, 0, 0); }
+  100% { transform: scale(1.28) translate3d(-2%, -2%, 0); }
+}
+@keyframes heroCycle {
+  0%, 26% { opacity: 1; }
+  33%, 93% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes flicker {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.6; }
+}
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes tickerScroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.hero-frame {
+  animation: heroCycle 18s linear infinite;
+}
+.hero-frame img {
+  animation: kenburns 18s ease-in-out infinite alternate;
+}
+.hero-rise { animation: riseIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.ticker-track { animation: tickerScroll 22s linear infinite; }
+.flicker { animation: flicker 4s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-frame, .hero-frame img, .hero-rise, .ticker-track, .flicker { animation: none !important; }
+}
