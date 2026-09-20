@@ -14,7 +14,179 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      orders: {
+        Row: {
+          buyer_email: string
+          buyer_name: string
+          buyer_note: string | null
+          buyer_phone: string | null
+          created_at: string
+          currency: string
+          id: string
+          paid_at: string | null
+          payment_method: Database["public"]["Enums"]["payment_method"]
+          payment_reference: string | null
+          product_id: string
+          quantity: number
+          reference: string
+          status: Database["public"]["Enums"]["order_status"]
+          store_id: string
+          total_cents: number
+          updated_at: string
+        }
+        Insert: {
+          buyer_email: string
+          buyer_name: string
+          buyer_note?: string | null
+          buyer_phone?: string | null
+          created_at?: string
+          currency?: string
+          id?: string
+          paid_at?: string | null
+          payment_method: Database["public"]["Enums"]["payment_method"]
+          payment_reference?: string | null
+          product_id: string
+          quantity?: number
+          reference?: string
+          status?: Database["public"]["Enums"]["order_status"]
+          store_id: string
+          total_cents: number
+          updated_at?: string
+        }
+        Update: {
+          buyer_email?: string
+          buyer_name?: string
+          buyer_note?: string | null
+          buyer_phone?: string | null
+          created_at?: string
+          currency?: string
+          id?: string
+          paid_at?: string | null
+          payment_method?: Database["public"]["Enums"]["payment_method"]
+          payment_reference?: string | null
+          product_id?: string
+          quantity?: number
+          reference?: string
+          status?: Database["public"]["Enums"]["order_status"]
+          store_id?: string
+          total_cents?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "orders_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "orders_store_id_fkey"
+            columns: ["store_id"]
+            isOneToOne: false
+            referencedRelation: "stores"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      products: {
+        Row: {
+          category: Database["public"]["Enums"]["product_category"]
+          created_at: string
+          currency: string
+          description: string | null
+          id: string
+          image_url: string | null
+          is_published: boolean
+          price_cents: number
+          slug: string
+          stock: number
+          store_id: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category: Database["public"]["Enums"]["product_category"]
+          created_at?: string
+          currency?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          is_published?: boolean
+          price_cents: number
+          slug: string
+          stock?: number
+          store_id: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: Database["public"]["Enums"]["product_category"]
+          created_at?: string
+          currency?: string
+          description?: string | null
+          id?: string
+          image_url?: string | null
+          is_published?: boolean
+          price_cents?: number
+          slug?: string
+          stock?: number
+          store_id?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "products_store_id_fkey"
+            columns: ["store_id"]
+            isOneToOne: false
+            referencedRelation: "stores"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      stores: {
+        Row: {
+          created_at: string
+          id: string
+          logo_url: string | null
+          name: string
+          plan: Database["public"]["Enums"]["store_plan"]
+          region: string | null
+          slug: string
+          story: string | null
+          tagline: string | null
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          logo_url?: string | null
+          name: string
+          plan?: Database["public"]["Enums"]["store_plan"]
+          region?: string | null
+          slug: string
+          story?: string | null
+          tagline?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          logo_url?: string | null
+          name?: string
+          plan?: Database["public"]["Enums"]["store_plan"]
+          region?: string | null
+          slug?: string
+          story?: string | null
+          tagline?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +195,10 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      order_status: "awaiting_payment" | "paid" | "cancelled"
+      payment_method: "paypal" | "payfast" | "bank_transfer"
+      product_category: "foods" | "baking" | "medicinals" | "art"
+      store_plan: "starter" | "heritage"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +325,11 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      order_status: ["awaiting_payment", "paid", "cancelled"],
+      payment_method: ["paypal", "payfast", "bank_transfer"],
+      product_category: ["foods", "baking", "medicinals", "art"],
+      store_plan: ["starter", "heritage"],
+    },
   },
 } as const
